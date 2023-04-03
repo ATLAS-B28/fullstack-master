@@ -32,10 +32,10 @@ const generateblogHTML = (blogData) => {
       <p class="card-text">
         ${blogData.description}
       </p>
-      <span class="badge bg-primary">${blogData.type}</span>
+      
     </div>
     <div class="card-footer">
-     
+    <span class="badge bg-primary">${blogData.type}</span>
     </div>
   </div>
   </div>`;
@@ -97,22 +97,22 @@ const deleteCard = (event) => {
 //edit form populating event
 const editCard = (event) => {
   const type = event.target.tagName;
- 
+
   if (type === "BUTTON") {
     parentElement = event.target.parentNode.parentNode;
   } else {
     parentElement = event.target.parentNode.parentNode.parentNode;
   }
-  console.log(parentElement)
+  console.log(parentElement);
   //blogTitle = parentElement.childNodes[3].childNodes[3];
   //blogDescription = parentElement.childNodes[3].childNodes[5];
   //blogType = parentElement.childNodes[3].childNodes[7];
   //submitButton = parentElement.childNodes[5].childNodes[1];
-  const cardBody = parentElement.querySelector('.card-body');
-  const blogTitle = cardBody.querySelector('.card-title');
-  const blogDescription = cardBody.querySelector('.card-text');
-  const blogType = cardBody.querySelector('.badge');
-  const submitButton = parentElement.querySelector('.btn-outline-info');
+  const cardBody = parentElement.querySelector(".card-body");
+  const blogTitle = cardBody.querySelector(".card-title");
+  const blogDescription = cardBody.querySelector(".card-text");
+  const blogType = cardBody.querySelector(".badge");
+  const submitButton = parentElement.querySelector(".btn-outline-info");
   //set the attribute
   blogTitle.setAttribute("contenteditable", "true");
   blogDescription.setAttribute("contenteditable", "true");
@@ -132,22 +132,22 @@ const saveEdit = (event) => {
     parentElement = event.target.parentNode.parentNode.parentNode;
   }
 
- ///const blogTitle = parentElement.childNodes[3].childNodes[3];
+  ///const blogTitle = parentElement.childNodes[3].childNodes[3];
   //const blogDescription = parentElement.childNodes[3].childNodes[5];
   //const blogType = parentElement.childNodes[3].childNodes[7];
   //const submitButton = parentElement.childNodes[5].childNodes[1];
-  const cardBody = parentElement.querySelector('.card-body');
-  const blogTitle = cardBody.querySelector('.card-title');
-  const blogDescription = cardBody.querySelector('.card-text');
-  const blogType = cardBody.querySelector('.badge');
-  const submitButton = parentElement.querySelector('.btn-outline-info');
+  const cardBody = parentElement.querySelector(".card-body");
+  const blogTitle = cardBody.querySelector(".card-title");
+  const blogDescription = cardBody.querySelector(".card-text");
+  const blogType = cardBody.querySelector(".badge");
+  const submitButton = parentElement.querySelector(".btn-outline-info");
   const updatedData = {
     title: blogTitle.innerHTML,
     type: blogType.innerHTML,
     description: blogDescription.innerHTML,
   };
   console.log(updatedData, target);
-  const globalUpdate = globalblogData.map(blog => {
+  const globalUpdate = globalblogData.map((blog) => {
     if (blog.id === target) {
       console.log({ ...blog, ...updatedData });
       return { ...blog, ...updatedData };
@@ -166,7 +166,7 @@ const saveEdit = (event) => {
   blogTitle.setAttribute("contenteditable", "false");
   blogDescription.setAttribute("contenteditable", "false");
   blogType.setAttribute("contenteditable", "false");
-  submitButton.innerHTML = `<i class="fal fa-pencil" name=${blogData.id}></i>`
+  submitButton.innerHTML = `<i class="fal fa-pencil" name=${blogData.id}></i>`;
 };
 
 /**
