@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#container{
+ padding: 100px;
+ margin: 100px;
+ font-size: larger;
+ justify-content: center;
+ text-align: center;
+}
+.child{
+    font-size: large;
+}
+button{
+    
+ margin: 100px;
+
+    
+    justify-content: center;
+    text-align: center;  
+}
