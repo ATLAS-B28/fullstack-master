@@ -103,14 +103,15 @@ const editCard = (event) => {
   } else {
     parentElement = event.target.parentNode.parentNode.parentNode;
   }
+  console.log(parentElement)
   blogTitle = parentElement.childNodes[3].childNodes[3];
   blogDescription = parentElement.childNodes[3].childNodes[5];
   blogType = parentElement.childNodes[3].childNodes[7];
   submitButton = parentElement.childNodes[5].childNodes[1];
   //set the attribute
-  blogTitle.setAttribute("contenteditable", true);
-  blogDescription.setAttribute("contenteditable", true);
-  blogType.setAttribute("contenteditable", true);
+  blogTitle.setAttribute("contenteditable", "true");
+  blogDescription.setAttribute("contenteditable", "true");
+  blogType.setAttribute("contenteditable", "true");
   submitButton.setAttribute("onclick", "saveEdit.apply(this, args)");
   submitButton.innerHTML = "SaveChanges";
 };
@@ -133,21 +134,21 @@ const saveEdit = (event) => {
   const updatedData = {
     title: blogTitle.innerHTML,
     type: blogType.innerHTML,
-    desc: blogDescription.innerHTML,
+    description: blogDescription.innerHTML,
   };
   console.log(updatedData, target);
-  const gloabalUpdate = globalblogData.map((blog) => {
+  const gloabalUpdate = globalblogData.map(blog => {
     if (blog.id === target) {
-      console.log({ ...blog, updatedData });
-      return { ...blog, updatedData };
+      console.log({ ...blog, ...updatedData });
+      return { ...blog, ...updatedData };
     }
     return blog;
   });
   globalblogData = gloabalUpdate;
   saveToStorage();
-  taskTitle.setAttribute("contenteditable", "false");
-  taskDescription.setAttribute("contenteditable", "false");
-  taskType.setAttribute("contenteditable", "false");
+  blogTitle.setAttribute("contenteditable", "false");
+  blogDescription.setAttribute("contenteditable", "false");
+  blogType.setAttribute("contenteditable", "false");
   submitButton.innerHTML = "Open Task";
 };
 
