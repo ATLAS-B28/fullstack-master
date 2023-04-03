@@ -52,10 +52,10 @@ const addNewCard = () => {
   console.log(newCard);
   insertDOM(newCard); //instantenously shows the new blog
   //clear form
-  document.getElementById("taskTitle").value = "";
+  document.getElementById("blogTitle").value = "";
   document.getElementById("imageURL").value = "";
-  document.getElementById("taskType").value = "";
-  document.getElementById("taskDescription").value = "";
+  document.getElementById("blogType").value = "";
+  document.getElementById("blogDescription").value = "";
 
   return;
 };
