@@ -116,7 +116,7 @@ const editCard = (event) => {
   blogDescription.setAttribute("contenteditable", "true");
   blogType.setAttribute("contenteditable", "true");
   submitButton.setAttribute("onclick", "saveEdit.apply(this, arguments)");
-  submitButton.innerHTML = "SaveChanges";
+  submitButton.innerHTML = "Save Changes";
 };
 //save edit
 const saveEdit = (event) => {
