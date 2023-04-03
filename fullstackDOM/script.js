@@ -1,4 +1,4 @@
-const blogContainer = document.querySelector(".blog_container");
+const blogContainer = document.querySelector(".blog__container");
 let globalblogData = [];
 //array containing the blog
 //the below are used for creating ,edit and deleting cards
@@ -12,30 +12,33 @@ const insertDOM = (content) =>
 //we will genetrate html dynamically
 const generateblogHTML = (blogData) => {
   //use template literals
-  return `<div class="col-md-6 col-lg-4 my-4" id=${blogData.id}>
- <div class="card">
-   <div class="card-header gap-2 d-flex justify-content-end">
-     <button class="btn btn-outline-info" name=${blogData.id} onclick="editCard.apply(this, args)">
-      <i class="fal fa-pencil" name=${blogData.id} ></i>
-     </button>
-     <button class="btn btn-outline-danger" name=${blogData.id} onclick="deleteCard.apply(this, args)">
-      <i class="far fa-trash-alt" name=${blogData.id}></i>
-     </button>
-
-   </div>
-   <div class="card-body">
-     <img src=${blogData.image} alt="image" class="card-img">
-   </div>
-   <h5 class="card-title mt-4">${blogData.title}</h5>
-   <p class="card-text">
-     ${blogData.desc}
-   </p>
-   <span class="badge bg-primary">${blogData.type}</span>
- </div>
- <div class="card-footer">
-   <button class="btn btn-outline-primary" name=${blogData.id}>Open blog/button>
- </div>
-</div>`;
+  return ` <div id=${blogData.id} class="col-md-6 col-lg-4 my-4">
+  <div class="card">
+    <div class="card-header gap-2 d-flex justify-content-end">
+      <button class="btn btn-outline-info" name=${blogData.id} onclick="editCard.apply(this, arguments)" >
+        <i class="fal fa-pencil" name=${blogData.id}></i>
+      </button>
+      <button class="btn btn-outline-danger" name=${blogData.id} onclick="deleteCard.apply(this, arguments)">
+        <i class="far fa-trash-alt" name=${blogData.id}></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <img
+        src=${blogData.image}
+        alt="image"
+        class="card-img"
+      />
+      <h5 class="card-title mt-4">${blogData.title}</h5>
+      <p class="card-text">
+        ${blogData.description}
+      </p>
+      <span class="badge bg-primary">${blogData.type}</span>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-outline-primary" name=${blogData.id}>Open Task</button>
+    </div>
+  </div>
+  </div>`;
 };
 //new card
 const addNewCard = () => {
@@ -44,7 +47,7 @@ const addNewCard = () => {
     title: document.getElementById("blogTitle").value,
     image: document.getElementById("imageURL").value,
     type: document.getElementById("blogType").value,
-    desc: document.getElementById("blogDescription").value,
+    description: document.getElementById("blogDescription").value,
   };
   globalblogData.push(blogData);
   saveToStorage();
@@ -61,7 +64,7 @@ const addNewCard = () => {
 };
 //load existing ones
 const loadCard = () => {
-  const getData = localStorage.getItem("blog");
+  const getData = localStorage.getItem("blogs");
   if (!getData) return;
   const blogCards = JSON.parse(getData);
   globalblogData = blogCards.card;
@@ -112,7 +115,7 @@ const editCard = (event) => {
   blogTitle.setAttribute("contenteditable", "true");
   blogDescription.setAttribute("contenteditable", "true");
   blogType.setAttribute("contenteditable", "true");
-  submitButton.setAttribute("onclick", "saveEdit.apply(this, args)");
+  submitButton.setAttribute("onclick", "saveEdit.apply(this, arguments)");
   submitButton.innerHTML = "SaveChanges";
 };
 //save edit
@@ -137,14 +140,14 @@ const saveEdit = (event) => {
     description: blogDescription.innerHTML,
   };
   console.log(updatedData, target);
-  const gloabalUpdate = globalblogData.map(blog => {
+  const globalUpdate = globalblogData.map(blog => {
     if (blog.id === target) {
       console.log({ ...blog, ...updatedData });
       return { ...blog, ...updatedData };
     }
     return blog;
   });
-  globalblogData = gloabalUpdate;
+  globalblogData = globalUpdate;
   saveToStorage();
   blogTitle.setAttribute("contenteditable", "false");
   blogDescription.setAttribute("contenteditable", "false");
