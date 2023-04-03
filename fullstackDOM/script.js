@@ -35,11 +35,12 @@ const generateblogHTML = (blogData) => {
       <span class="badge bg-primary">${blogData.type}</span>
     </div>
     <div class="card-footer">
-      <button class="btn btn-outline-primary" name=${blogData.id}>Open Task</button>
+     
     </div>
   </div>
   </div>`;
 };
+// <button class="btn btn-outline-primary" name=${blogData.id}>Open Task</button>
 //new card
 const addNewCard = () => {
   const blogData = {
@@ -96,21 +97,22 @@ const deleteCard = (event) => {
 //edit form populating event
 const editCard = (event) => {
   const type = event.target.tagName;
-  let blogTitle;
-  let blogType;
-  let blogDescription;
-  let parentElement;
-  let submitButton;
+ 
   if (type === "BUTTON") {
     parentElement = event.target.parentNode.parentNode;
   } else {
     parentElement = event.target.parentNode.parentNode.parentNode;
   }
   console.log(parentElement)
-  blogTitle = parentElement.childNodes[3].childNodes[3];
-  blogDescription = parentElement.childNodes[3].childNodes[5];
-  blogType = parentElement.childNodes[3].childNodes[7];
-  submitButton = parentElement.childNodes[5].childNodes[1];
+  //blogTitle = parentElement.childNodes[3].childNodes[3];
+  //blogDescription = parentElement.childNodes[3].childNodes[5];
+  //blogType = parentElement.childNodes[3].childNodes[7];
+  //submitButton = parentElement.childNodes[5].childNodes[1];
+  const cardBody = parentElement.querySelector('.card-body');
+  const blogTitle = cardBody.querySelector('.card-title');
+  const blogDescription = cardBody.querySelector('.card-text');
+  const blogType = cardBody.querySelector('.badge');
+  const submitButton = parentElement.querySelector('.btn-outline-info');
   //set the attribute
   blogTitle.setAttribute("contenteditable", "true");
   blogDescription.setAttribute("contenteditable", "true");
@@ -130,10 +132,15 @@ const saveEdit = (event) => {
     parentElement = event.target.parentNode.parentNode.parentNode;
   }
 
-  const blogTitle = parentElement.childNodes[3].childNodes[3];
-  const blogDescription = parentElement.childNodes[3].childNodes[5];
-  const blogType = parentElement.childNodes[3].childNodes[7];
-  const submitButton = parentElement.childNodes[5].childNodes[1];
+ ///const blogTitle = parentElement.childNodes[3].childNodes[3];
+  //const blogDescription = parentElement.childNodes[3].childNodes[5];
+  //const blogType = parentElement.childNodes[3].childNodes[7];
+  //const submitButton = parentElement.childNodes[5].childNodes[1];
+  const cardBody = parentElement.querySelector('.card-body');
+  const blogTitle = cardBody.querySelector('.card-title');
+  const blogDescription = cardBody.querySelector('.card-text');
+  const blogType = cardBody.querySelector('.badge');
+  const submitButton = parentElement.querySelector('.btn-outline-info');
   const updatedData = {
     title: blogTitle.innerHTML,
     type: blogType.innerHTML,
@@ -149,10 +156,17 @@ const saveEdit = (event) => {
   });
   globalblogData = globalUpdate;
   saveToStorage();
+  const blogData = {
+    id: `${Date.now()}`,
+    title: document.getElementById("blogTitle").value,
+    image: document.getElementById("imageURL").value,
+    type: document.getElementById("blogType").value,
+    description: document.getElementById("blogDescription").value,
+  };
   blogTitle.setAttribute("contenteditable", "false");
   blogDescription.setAttribute("contenteditable", "false");
   blogType.setAttribute("contenteditable", "false");
-  submitButton.innerHTML = "Open Task";
+  submitButton.innerHTML = `<i class="fal fa-pencil" name=${blogData.id}></i>`
 };
 
 /**
