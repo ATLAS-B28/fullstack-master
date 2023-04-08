@@ -97,6 +97,84 @@ app.get("/author/book/:isbn", (req, res) => {
   return res.json({ authors: filterAuthorsByBookISBN });
 });
 
+//route - /author/books/:isbn
+//access - public
+//desc - to showcase author and their book wrt to isbn
+//param  - book's isbn
+//method - get
+app.get("/publications",(req,res)=>{
+  return res.json({publications:database.publication})
+})
+
+//route - /author/books/:isbn
+//access - public
+//desc - to showcase author and their book wrt to isbn
+//param  - book's isbn
+//method - get
+app.get("/publication/book/:isbn", (req, res) => {
+  const publicationsByBookISBN = database.publication.filter((pub) =>
+    pub.books.includes(req.params.isbn)
+  );
+  if (publicationsByBookISBN.length === 0) {
+    return res.json({
+      error: `No such book with this isbn no. of this publication- ${req.params.isbn} found`,
+    });
+  }
+  return res.json({ publication:publicationsByBookISBN });
+});
+
+//post 
+//route - /book/new
+//desc-  add new book
+//access - access to user
+//parameter - none
+//methods - post
+app.post("/book/new",(req,res)=>{
+     //get the json body
+     const newBook = req.body
+     
+     
+     //and append to database
+     database.books.push(newBook)
+     return res.json({newdata:database.books})
+
+})
+
+//route - /author/new
+//desc-  add new author
+//access - access to admin
+//parameter - none
+//methods - post
+app.post("/author/new",(req,res)=>{
+  //get the json body
+  const newAuthor = req.body
+  
+  
+  //and append to database
+  database.books.push(newAuthor)
+  return res.json({newdata:database.author})
+
+})
+
+//route - /publication/new
+//desc-  add new publication
+//access - access to admin
+//parameter - none
+//methods - post
+app.post("/book/new",(req,res)=>{
+  //get the json body
+  const newBook = req.body
+  
+  
+  //and append to database
+  database.books.push(newBook)
+  return res.json({newdata:database.books})
+
+})
+
+
+
+
 app.listen(PORT, () => {
   console.log(`Connected on ${PORT}`);
 });
