@@ -261,14 +261,14 @@ app.put("/book/author/update/:isbn",async (req,res)=>{
   )
 })
 
-//route - /publication/author/book/:isbn
+//route - /book/author/update/:isbn
 //desc -update and add new author in book and author respectively
 //access - public
 //parameter - isbn
 //methods - put
 
 //methods - put
-app.put("/book/author/update/:isbn",async (req,res)=>{
+app.put("/book/pub/update/:isbn",async (req,res)=>{
   //update the book database
    const updatedBook = await BookModel.findOneAndUpdate(
      {
