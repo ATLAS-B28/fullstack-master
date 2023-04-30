@@ -1,0 +1,13 @@
+npm i -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",<- imp.
+    "./src/**/*.{js.tx,jsx,tsx}",<- imp.
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
