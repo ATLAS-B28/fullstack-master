@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DefaultLayout = ({props}) => {
+const DefaultLayout = (props) => {
   return (
    <>
     
