@@ -1,10 +1,22 @@
 import React from 'react'
+import { Route ,Routes } from 'react-router-dom'
+import DefaultLayout from '../Layouts/Default.layout'
 
-const DefaultHOC = () => {
+const DefaultHOC = ({component , ...rest}) /**Here we pass the params */=> {
   return (
-    <h1>
-        Defalut HOC 
-    </h1>
+    //props = path 
+    <>
+    <Routes>
+     <Route
+     {...rest}//to make sure we are not missing any property 
+      Component={props=>{
+        <DefaultLayout>
+          <Component {...props}/>
+        </DefaultLayout>
+      }}
+     />
+     </Routes>
+    </>
   )
 }
 
