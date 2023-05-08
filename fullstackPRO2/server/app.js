@@ -19,7 +19,7 @@ import passport from "passport"
 //database connection
  //connection
 import connection from "./database/connection.js"
-
+import Auth from './API/Auth/index.js'
 const app = express()
 const PORT = process.env.PORT || 5000
 //using express middlewares
@@ -36,6 +36,7 @@ app.use(cors())
     res.json({message:"Set up done!!"})
  })
  //auth
+ app.use("/auth",Auth)
  //restaurant
  //food
  //menu
