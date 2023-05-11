@@ -5,8 +5,10 @@ const router = express.Router()
 router.get("/:_id",async (req,res)=>{
     try {
         //_id is the param
+        const {_id} = req.params
         //find the user in DB
-        return res.json({message:"User found by id"})
+        const getUser = await UserModel.findById(_id)
+        return res.json({user:getUser})
     } catch (error) {
         return res.status(500).json({error:error.message})
     }
@@ -15,9 +17,20 @@ router.get("/:_id",async (req,res)=>{
 router.put("/update/:_userId",async (req,res)=>{
     try {
         //get userId by req.params
+        const {userId} = req.params
         //user body from req
+        const {userData} = req.body
         //update using regex
-        return res.json({message:"Updated the user by id"})
+        const updateUserData = await UserModel.findByIdAndUpdate(
+            userId,
+            {
+             $set:userData
+            },
+            {
+                new:true
+            }
+        )
+        return res.json({user:updateUserData})
     } catch (error) {
         return res.status(500).json({error:error.message})
     }
