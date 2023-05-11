@@ -5,6 +5,7 @@ import express from "express"
 import cors from "cors"
 import helmet from "helmet"
 import passport from "passport"
+import sesssion from "express-session"
 import googleConfig from "./config/google.config.js"
 import routeConfig from "./config/route.config.js"
 //config imports
@@ -28,6 +29,7 @@ import routeConfig from "./config/route.config.js"
 //database connection
  //connection
 import connection from "./database/connection.js"
+import session from "express-session"
 const app = express()
 const PORT = process.env.PORT || 5000
 //using express middlewares
@@ -37,6 +39,12 @@ app.use(helmet())
 app.use(cors())
 //passport config 
 app.use(passport.initialize())
+app.use(session({
+   secret:"ZomatoApp",
+   resave:false,
+   saveUninitialized:false,
+   cookie:{secure:true}
+}))
 app.use(passport.session())
 googleConfig(passport)
 routeConfig(passport)
