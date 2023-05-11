@@ -18,7 +18,7 @@ const MenuSchema = new mongoose.Schema({
  recommended:[
     {
         type:mongoose.Types.ObjectId,
-        ref:"Foods",
+        ref:"Foods",//refers to id of food items for every menu searched by id
         unique:true
     }
  ]

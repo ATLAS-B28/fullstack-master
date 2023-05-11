@@ -1,5 +1,6 @@
 import express  from "express";
 import { FoodModel } from "../../database/allModels.js";
+import { ValidateCategory, ValidateRestaurantId } from "../../validation/food.js";
 const router = express.Router()
 //here we have to have routes to-
 /**
@@ -12,9 +13,12 @@ const router = express.Router()
 router.get("/:_id", async (req,res)=>{
     try {
         ///validate the id
+        await ValidateRestaurantId(req.params)//the params has the id
         //id 
+        const {_id}  = req.params
         //find it in the DB
-        return res.json({message:"resulting food by restaurant"})
+        const food = await FoodModel.find({restaurant:_id})
+        return res.json({food})
     } catch (error) {
         return res.status(500).json({error:error.message})
     }
@@ -25,9 +29,16 @@ router.get("/:_id", async (req,res)=>{
 router.get("/r/:category",async (req,res)=>{
     try {
         //validate the categories
+        await ValidateCategory(req.params)
         //category
+        const {category} = req.params
         //find in the DB with regex 
-        return res.json({message:"resulting food by restaurant"})
+        const foods = await FoodModel.find({
+            category:{
+                $regex:category,$options:"i"
+            }
+        })
+        return res.json({foods})
     } catch (error) {
         return res.status(500).json({error:error.message})
     }
