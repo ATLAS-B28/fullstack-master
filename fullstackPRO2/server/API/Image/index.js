@@ -2,6 +2,7 @@ import express  from "express";
 import AWS from 'aws-sdk';
 import multer from "multer";
 import { ImageModel } from "../../database/allModels.js";
+import { s3Upload } from "../../Utils/S3.js";
 const router = express.Router()
 //multer config
 const storage  = multer.memoryStorage();
@@ -26,9 +27,18 @@ router.post("/",upload.single("file")
 async (req,res)=>{
     try {
         //get the file from the req header
+        const file = req.file
         //then get the aws s3 options to pass for uploading
+        const bucketOptions = {
+            Bucket:"",
+            Key:file.originalname,
+            Body:file.buffer,
+            ContentType:file.mimetype,
+            ACL:"public-read"
+        }
         //finally upload with bucket options
-        return res.status(200).json({message:"Uploaded"})
+        const uploadImage = await s3Upload(bucketOptions)
+        return res.status(200).json({uploadImage})
     } catch (error) {
         return res.status(500).json({error:error.message})
     }
