@@ -1,9 +1,9 @@
 import AWS from "aws-sdk"
- /*const s3Bucket = new AWS.S3({
+ const s3Bucket = new AWS.S3({
     accessKeyId:"",
     secretAccessKey:"",
-    region
- })*/
+    region:"ap-northeast-3"
+ })
 
  export const s3Upload = (options)=>{
     return new Promise((resolve,reject)=>{
@@ -12,4 +12,4 @@ import AWS from "aws-sdk"
             return resolve(data)
         })
     })
- }
+ }  

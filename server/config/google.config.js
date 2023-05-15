@@ -5,13 +5,13 @@ const strategy = googleOAuth.Strategy
 export default (passport)=>{
     passport.use(
         new strategy({
-            clientID:process.env.GOOGLE_AUTH,
-            clientSecret:process.env.GOOGLE_SECERT,
+            clientID:"415254838957-di1dh33nqclvajkppaicn8kntobr5ne7.apps.googleusercontent.com",
+            clientSecret:"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",
             callbackURL:"http://localhost:4000/auth/google/callback"
         },
         async (accessToken,refreshToken,profile,done)=>{
           const newUser = {
-            fullname:profile.displayname,
+            fullname:profile.displayName,
             email:profile.emails[0].value,//1st email for google auth
             profilePic:profile.photos[0].value  
         }
@@ -38,7 +38,7 @@ export default (passport)=>{
     passport.serializeUser((userData,done)=> done(null,{...userData}))
     passport.deserializeUser((id,done)=>done(null,id))
 }
-/**
+/*
  * 
  * 
 

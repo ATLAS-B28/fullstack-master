@@ -13,7 +13,7 @@ router.post("/signup", async (req, res) => {
     //take the credentials and pass through validate
     await ValidateSignUp(req.body.credential)
     //check whether the user is already there or not
-    await UserModel.findByEmailAndContact(email,contact)
+    await UserModel.findByEmailAndContact(req.body.credential)
    //after this hashing by pre middleware and then creation of obj in DB
    
     //if not create new user and save to DB
@@ -62,16 +62,15 @@ router.get(
 //google signin callback
 // /google/callback route
 //get method
-router.get(
-  "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/" }),
-  (req, res) => {
-    return res.json({token:req.session.passport.user.token});
-  }
+router.get("/google/callback", passport.authenticate("google",{failureRedirect: "/"}),
+(req,res) => {
+  return res.json({token: req.session.passport.user.token});
+}
 );
 
 export default router;
-/**
+/*
+
  * Static methods apply to the entire model
  * on which they are defined whereas instance 
  * methods apply only to a specific document within
